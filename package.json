@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "FitX Rest Api",
   "main": "server.js",
+  "type": "module",
   "scripts": {
     "start": "node backend/server.js",
     "server": "nodemon backend/server.js"
@@ -13,6 +14,7 @@
     "dotenv": "^16.4.1",
     "express": "^4.18.2",
     "express-async-handler": "^1.2.0",
+    "got": "^14.2.0",
     "mongoose": "^8.1.1",
     "node-schedule": "^2.1.1"
   },
