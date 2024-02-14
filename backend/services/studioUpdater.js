@@ -70,6 +70,24 @@ const runUpdateSchedule = () => {
     });
 }
 
+// Checks if studio with given id exists
+// returns the studio's name
+const checkStudio = async (studioId) => {
+    let studioName = null;
+    studioName = await got.get(`https://fitx-proxy.daniel-stefan.dev/api/utilization/${studioId}`, {responseType: 'json'})
+    .then(async res => {
+        if (res.statusCode == 200) {
+            studioName = res.body.name;
+            return res.body.name;
+        }
+    })
+    .catch(err => {
+        console.log('Error: ', err.message);
+    });
+    return studioName;
+}
+
 export {
     runUpdateSchedule,
+    checkStudio
 }
