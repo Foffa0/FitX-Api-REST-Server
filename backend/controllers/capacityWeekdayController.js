@@ -52,7 +52,7 @@ const updateCapacityByStudioId = async (studioModelId, weekday, values) => {
 // @desc    Delete weekday capacity
 // @route   internal
 // @access  Private
-const deleteCapacityByStudioId = asyncHandler(async (studioModelId, weekday) => {
+const deleteCapacityByStudioId = async (studioModelId, weekday) => {
     const weekdayCapacity = await WeekdayCapacityModel.find({ studio: studioModelId, weekday: weekday });
 
     if(!weekdayCapacity) {
@@ -60,7 +60,7 @@ const deleteCapacityByStudioId = asyncHandler(async (studioModelId, weekday) => 
     }
 
     await weekdayCapacity.deleteOne();
-});
+};
 
 export {
     getCapacityByStudioId,
