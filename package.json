@@ -16,7 +16,8 @@
     "express-async-handler": "^1.2.0",
     "got": "^14.2.0",
     "mongoose": "^8.1.1",
-    "node-schedule": "^2.1.1"
+    "node-schedule": "^2.1.1",
+    "rate-limiter-flexible": "^4.0.1"
   },
   "devDependencies": {
     "nodemon": "^3.0.3"
