@@ -1,23 +1,27 @@
-const express = require('express')
-const dotenv = require('dotenv').config()
-const { errorHandler } = require('./middleware/errorMiddleware')
-const { runUpdateSchedule } = require('./jobs/studioUpdater')
-const connectDB = require('./config/db')
-const port = process.env.PORT || 5000
+import express from 'express';
+import dotenv from 'dotenv';
+dotenv.config();
+import { errorHandler } from './middleware/errorMiddleware.js';
+import { runUpdateSchedule } from'./jobs/studioUpdater.js';
+import { connectDB } from'./config/db.js';
+import { studioRouter } from './routes/studioRoutes.js';
+import { capacityRouter } from './routes/capacityRoutes.js';
 
-connectDB()
+const port = process.env.PORT || 5000;
 
-const app = express()
+connectDB();
 
-app.use(express.json())
-app.use(express.urlencoded({ extended: false }))
+const app = express();
 
-app.use('/api/studios', require('./routes/studioRoutes'))
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
 
-app.use('/api/capacity', require('./routes/capacityRoutes'))
+app.use('/api/studios', studioRouter);
 
-app.use(errorHandler)
+app.use('/api/capacity', capacityRouter);
 
-app.listen(port, () => console.log(`Server started on port ${port}`))
+app.use(errorHandler);
+
+app.listen(port, () => console.log(`Server started on port ${port}`));
 
 runUpdateSchedule();

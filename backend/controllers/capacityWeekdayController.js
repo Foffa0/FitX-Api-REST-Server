@@ -1,69 +1,68 @@
-const asyncHandler = require('express-async-handler')
-
-const CapacityWeekday = require('../models/capacityWeekdayModel')
-const Studio = require('../models/studioModel')
+import asyncHandler from 'express-async-handler';
+import { Studio } from '../models/studioModel.js';
+import { WeekdayCapacityModel } from '../models/capacityWeekdayModel.js';
 
 // @desc    Get studio capacities
 // @route   GET /api/studios
 // @access  Public
 const getCapacityByStudioId = asyncHandler(async (req, res) => {
     if (!req.body.studioId) {
-        res.status(400)
-        throw new Error('Please add studioId')
+        res.status(400);
+        throw new Error('Please add studioId');
     }
 
-    const studioModel = await Studio.findOne({ studioId: req.body.studioId })
+    const studioModel = await Studio.findOne({ studioId: req.body.studioId });
 
     //await setCapacityByStudioId(studioModel._id, 0)
     if (!studioModel) {
-        throw new Error('Studio not found')
+        throw new Error('Studio not found');
     }
-    const capacities = await CapacityWeekday.find({ studio: studioModel._id })
+    const capacities = await WeekdayCapacityModel.find({ studio: studioModel._id });
 
-    res.status(200).json(capacities)
-})
+    res.status(200).json(capacities);
+});
 
 // @desc    Set studio capacity for a weekday
 // @route   internal
 // @access  Private
 const setCapacityByStudioId = async (studioModelId, weekday) => {   
-    const weekdayCapacity = await CapacityWeekday.create({
+    const weekdayCapacity = await WeekdayCapacityModel.create({
         studio: studioModelId,
         weekday: weekday,
-    })
+    });
 
-    console.log(`Created Weekday capacity: ${weekdayCapacity}`)
+    console.log(`Created Weekday capacity: ${weekdayCapacity}`);
 }
 
 // @desc    Update studio weekday capacity
 // @route   internal
 // @access  Private
-const updateCapacityByStudioId = asyncHandler(async (studioModelId, weekday, vals) => {
-    const weekdayCapacity = await CapacityWeekday.find({ studio: studioModelId, weekday: weekday })
+const updateCapacityByStudioId = async (studioModelId, weekday, values) => {
+    const weekdayCapacity = await WeekdayCapacityModel.find({ studio: studioModelId, weekday: weekday });
 
     if(!weekdayCapacity) {
-        throw new Error('weekdayCapacity not found')
+        throw new Error('weekdayCapacity not found');
     }
 
-    const updatedStudio = await CapacityWeekday.findOneAndUpdate({ studio: studioModelId, weekday: weekday }, { values: vals }, { new: true,})
+    const updatedStudio = await WeekdayCapacityModel.findOneAndUpdate({ studio: studioModelId, weekday: weekday }, { values: values }, { new: true,});
 
-    console.log(`Updated Weekday capacity: ${updatedStudio}`)
-})
+    console.log(`Updated Weekday capacity: ${updatedStudio}`);
+}
 
 // @desc    Delete weekday capacity
 // @route   internal
 // @access  Private
 const deleteCapacityByStudioId = asyncHandler(async (studioModelId, weekday) => {
-    const weekdayCapacity = await CapacityWeekday.find({ studio: studioModelId, weekday: weekday })
+    const weekdayCapacity = await WeekdayCapacityModel.find({ studio: studioModelId, weekday: weekday });
 
     if(!weekdayCapacity) {
-        throw new Error('weekdayCapacity not found')
+        throw new Error('weekdayCapacity not found');
     }
 
-    await weekdayCapacity.deleteOne()
-})
+    await weekdayCapacity.deleteOne();
+});
 
-module.exports = {
+export {
     getCapacityByStudioId,
     setCapacityByStudioId,
     updateCapacityByStudioId,

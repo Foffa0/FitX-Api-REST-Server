@@ -1,4 +1,4 @@
-const mongoose = require('mongoose')
+import mongoose from 'mongoose';
 
 const studioSchema = mongoose.Schema({
     name: {
@@ -9,6 +9,10 @@ const studioSchema = mongoose.Schema({
         type: Number,
         required: true
     }
-})
+});
 
-module.exports = mongoose.model('Studio', studioSchema)
+const Studio = mongoose.model('Studio', studioSchema);
+
+export {
+    Studio
+} 

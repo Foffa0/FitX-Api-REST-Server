@@ -1,4 +1,4 @@
-const mongoose = require('mongoose')
+import mongoose from 'mongoose';
 
 const capacitySchema = mongoose.Schema({
     studio: {
@@ -11,8 +11,12 @@ const capacitySchema = mongoose.Schema({
         required: true
     },
     values: 
-        [{ start: String, end: String, capacity: Number }]
+        [{ start: String, end: String, capacities: []}]
     
-})
+});
 
-module.exports = mongoose.model('CapacityWeekday', capacitySchema)
+const WeekdayCapacityModel = mongoose.model('CapacityWeekday', capacitySchema);
+
+export {
+    WeekdayCapacityModel
+}

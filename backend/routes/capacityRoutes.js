@@ -1,7 +1,9 @@
-const express = require('express')
-const router = express.Router()
-const { getCapacityByStudioId } = require = require('../controllers/capacityWeekdayController')
+import express from 'express';
+const capacityRouter = express.Router();
+import { getCapacityByStudioId } from'../controllers/capacityWeekdayController.js';
 
-router.route('/').get(getCapacityByStudioId)
+capacityRouter.route('/').get(getCapacityByStudioId);
 
-module.exports = router
+export {
+    capacityRouter
+}

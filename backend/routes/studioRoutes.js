@@ -1,9 +1,11 @@
-const express = require('express')
-const router = express.Router()
-const { getStudios, setStudio, updateStudio, deleteStudio } = require = require('../controllers/studioController')
+import express from 'express';
+const studioRouter = express.Router();
+import { getStudios, setStudio, updateStudio, deleteStudio } from '../controllers/studioController.js';
 
-router.route('/').get(getStudios).post(setStudio)
+studioRouter.route('/').get(getStudios).post(setStudio);
 
-router.route('/:id').delete(deleteStudio).put(updateStudio)
+studioRouter.route('/:id').delete(deleteStudio).put(updateStudio);
 
-module.exports = router
+export {
+    studioRouter
+} 
