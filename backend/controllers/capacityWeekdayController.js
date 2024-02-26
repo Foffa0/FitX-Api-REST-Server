@@ -6,12 +6,12 @@ import { WeekdayCapacityModel } from '../models/capacityWeekdayModel.js';
 // @route   GET /api/studios
 // @access  Public
 const getCapacityByStudioId = asyncHandler(async (req, res) => {
-    if (!req.body.studioId) {
+    if (!req.query.studioId) {
         res.status(400);
         throw new Error('Please add studioId');
     }
 
-    const studioModel = await Studio.findOne({ studioId: req.body.studioId });
+    const studioModel = await Studio.findOne({ studioId: req.query.studioId });
 
     //await setCapacityByStudioId(studioModel._id, 0)
     if (!studioModel) {

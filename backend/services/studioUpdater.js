@@ -6,6 +6,7 @@ import { updateCapacityByStudioId } from '../controllers/capacityWeekdayControll
 
 const runUpdateSchedule = () => {
     const job = schedule.scheduleJob('*/30 * * * *', async () => { // run every 30 Minutes
+        console.log("Running Schedule.");
         const studios = await Studio.find();
 
         for (let i = 0; i < studios.length; i++) {
@@ -38,12 +39,12 @@ const runUpdateSchedule = () => {
                         
                         for (let y = 0; y < capacity.values.length; y++) {
 
-                            const time = `${d.getHours()}:${d.getMinutes()}:00`
+                            const time = `${("0" + d.getHours()).slice(-2)}:${("0" + d.getMinutes()).slice(-2)}:00`
 
                             if (time >= capacity.values[y].start && time <= capacity.values[y].end)
                             {
-
                                 console.log(`found! ${capacity.values[y].start} - ${capacity.values[y].end}`);
+                                console.log(`with the current time: ${time}`);
                                 if (capacity.values[y].capacities.length >= 4) {
                                     capacity.values[y].capacities.shift();
                                 }
@@ -62,8 +63,6 @@ const runUpdateSchedule = () => {
             .catch(err => {
                 console.log('Error: ', err.message);
             });
-
-            console.log('The answer to life, the universe, and everything!');
         }
     });
 }
