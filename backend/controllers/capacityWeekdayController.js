@@ -30,8 +30,6 @@ const setCapacityByStudioId = async (studioModelId, weekday) => {
         studio: studioModelId,
         weekday: weekday,
     });
-
-    console.log(`Created Weekday capacity: ${weekdayCapacity}`);
 }
 
 // @desc    Update studio weekday capacity
@@ -45,8 +43,6 @@ const updateCapacityByStudioId = async (studioModelId, weekday, values) => {
     }
 
     const updatedStudio = await WeekdayCapacityModel.findOneAndUpdate({ studio: studioModelId, weekday: weekday }, { values: values }, { new: true,});
-
-    console.log(`Updated Weekday capacity: ${updatedStudio}`);
 }
 
 // @desc    Delete weekday capacity

@@ -12,8 +12,6 @@ const runUpdateSchedule = () => {
             
             const studioId = studios[0].studioId;
 
-            console.log(studioId);
-            console.log(`Studio id: ${studioId}`);
             got.get(`https://fitx-proxy.daniel-stefan.dev/api/utilization/${studioId}`, {responseType: 'json'})
             .then(async res => {
                 console.log('Status Code:', res.statusCode);

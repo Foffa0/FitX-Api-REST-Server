@@ -1,6 +1,6 @@
 import express from 'express';
 import dotenv from 'dotenv';
-dotenv.config();
+dotenv.config({path: '../.env'});
 import { errorHandler } from './middleware/errorMiddleware.js';
 import { runUpdateSchedule } from'./services/studioUpdater.js';
 import { connectDB } from'./config/db.js';

@@ -1,11 +1,18 @@
 version: '3.8'
 services:
   mongo:
+    container_name: fitx_api_db
     image: mongo:7.0.5
+    user: ${PUID}:${PGID}
     ports:
-      - 27017:27017
+      - 7003:27017
     volumes:
-      - mongodata:/data/db
-volumes:
- mongodata:
-  driver: local
+      - ./mongodata:/data/db
+  node:
+    container_name: fitx_api
+    build: .
+    user: ${PUID}:${PGID}
+    ports:
+      - 7002:5000
+    links:
+      - mongo
