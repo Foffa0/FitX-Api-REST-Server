@@ -5,13 +5,13 @@ import { WeekdayCapacityModel } from '../models/capacityWeekdayModel.js';
 // @desc    Get studio capacities
 // @route   GET /api/studios
 // @access  Public
-const getCapacityByStudioId = asyncHandler(async (req, res) => {
-    if (!req.query.studioId) {
+const getCapacityByMagiclineId = asyncHandler(async (req, res) => {
+    if (!req.query.magiclineId) {
         res.status(400);
-        throw new Error('Please add studioId');
+        throw new Error('Please add magiclineId');
     }
 
-    const studioModel = await Studio.findOne({ studioId: req.query.studioId });
+    const studioModel = await Studio.findOne({ magiclineId: req.query.magiclineId });
 
     //await setCapacityByStudioId(studioModel._id, 0)
     if (!studioModel) {
@@ -25,12 +25,12 @@ const getCapacityByStudioId = asyncHandler(async (req, res) => {
 // @desc    Set studio capacity for a weekday
 // @route   internal
 // @access  Private
-const setCapacityByStudioId = async (studioModelId, weekday) => {   
-    const weekdayCapacity = await WeekdayCapacityModel.create({
-        studio: studioModelId,
-        weekday: weekday,
-    });
-}
+// const setCapacityByStudioId = async (studioModelId, weekday) => {   
+//     const weekdayCapacity = await WeekdayCapacityModel.create({
+//         studio: studioModelId,
+//         weekday: weekday,
+//     });
+// }
 
 // @desc    Update studio weekday capacity
 // @route   internal
@@ -59,8 +59,8 @@ const deleteCapacityByStudioId = async (studioModelId, weekday) => {
 };
 
 export {
-    getCapacityByStudioId,
-    setCapacityByStudioId,
+    getCapacityByMagiclineId,
+    //setCapacityByStudioId,
     updateCapacityByStudioId,
     deleteCapacityByStudioId,
 }

@@ -7,3 +7,5 @@ npm-debug.log
 .env
 .aws
 fitxApi.tar
+mongodata
+docker-compose.yml
