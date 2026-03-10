@@ -16,3 +16,37 @@ services:
       - 7002:5000
     links:
       - mongo
+
+
+# name: fitx
+
+# services:
+#   mongo:
+#     container_name: fitx_api_db
+#     image: mongo:7.0.5
+#     #user: ${PUID}:${PGID}
+
+#     volumes:
+#       #- ./mongodata:/data/db
+#       - ./fitx/fitx-api-db:/data/db
+#     networks:
+#       - fitx-network
+#     restart: unless-stopped
+#   node: 
+#     container_name: fitx_api
+#     image: fitx-api:latest
+#     user: ${PUID}:${PGID}
+#     ports:
+#       - 7002:5000
+#     env_file:
+#       - fitx.env
+#     links:
+#       - mongo
+#     depends_on:
+#       - mongo
+#     restart: unless-stopped
+#     networks:
+#       - fitx-network
+# networks:
+#   fitx-network:
+#     driver: bridge

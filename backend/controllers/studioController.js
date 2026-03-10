@@ -16,29 +16,29 @@ const getStudios = asyncHandler(async (req, res) => {
 // @route   POST /api/studios
 // @access  Private
 const setStudio = asyncHandler(async (req, res) => {
-    if (!req.body.name || !req.body.studioId) {
+    if (!req.body.name || !req.body.magiclineId) {
         res.status(400);
-        throw new Error('Please add name/studioId field');
+        throw new Error('Please add name and magiclineId field');
     }
 
-    const studioName = await checkStudio(req.body.studioId)
-    console.log(studioName)
+    const studioName = await checkStudio(req.body.magiclineId)
 
     if (studioName == null) {
         res.status(404);
         throw new Error('studio with provided id could not be found');
     }
 
-    const studioDuplicate = await Studio.findOne({ studioId: req.body.studioId });
+    const studioDuplicate = await Studio.findOne({ magiclineId: req.body.magiclineId });
 
     if (studioDuplicate) {
+        await updateStudio(studioDuplicate._id, studioName, req.body.magiclineId)
         res.status(500);
-        throw new Error('Studio already in database')
+        throw new Error('Studio already in database. Updated.')
     }
 
     const studio = await Studio.create({
         name: studioName,
-        studioId: req.body.studioId,
+        magiclineId: req.body.magiclineId,
     });
     
     const timetable = [
@@ -105,21 +105,21 @@ const setStudio = asyncHandler(async (req, res) => {
 // @desc    Update studio
 // @route   Internal
 // @access  Private
-const updateStudio = async (id, newStudioId, newName) => {
+const updateStudio = async (id, newName, newMagiclineId) => {
     const studio = await Studio.findById(id);
 
     if(!studio) {
         throw new Error('Studio not found');
     }
 
-    const updatedStudio = await Studio.findByIdAndUpdate(id, {name: newName, studioId: newStudioId}, { new: true,});
+    const updatedStudio = await Studio.findByIdAndUpdate(id, {name: newName, magiclineId: newMagiclineId}, { new: true,});
 }
 
 // @desc    Delete studios
 // @route   DELETE /api/studios
 // @access  Public
 const deleteStudio = async () => {
-    const studio = await Studio.findById(req.params.id);
+    const studio = await Studio.findOne({ magiclineId: req.body.magiclineId });
 
     if(!studio) {
         res.status(400);

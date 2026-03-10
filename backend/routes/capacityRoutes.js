@@ -1,8 +1,8 @@
 import express from 'express';
 const capacityRouter = express.Router();
-import { getCapacityByStudioId } from'../controllers/capacityWeekdayController.js';
+import { getCapacityByMagiclineId } from'../controllers/capacityWeekdayController.js';
 
-capacityRouter.route('/').get(getCapacityByStudioId);
+capacityRouter.route('/').get(getCapacityByMagiclineId);
 
 export {
     capacityRouter

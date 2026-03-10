@@ -11,9 +11,9 @@ const runUpdateSchedule = () => {
 
         for (let i = 0; i < studios.length; i++) {
             
-            const studioId = studios[0].studioId;
+            const magiclineId = studios[0].magiclineId;
 
-            got.get(`https://fitx-proxy.daniel-stefan.dev/api/utilization/${studioId}`, {responseType: 'json'})
+            got.get(`https://mein.fitx.de/nox/public/v1/studios/${magiclineId}/utilization`, {responseType: 'json', headers: {"x-tenant": "fitx"}})
             .then(async res => {
                 console.log('Status Code:', res.statusCode);
                 
@@ -24,7 +24,7 @@ const runUpdateSchedule = () => {
                     {
                         console.log(body.items[x].percentage);
 
-                        const studioModel = await Studio.findOne({ studioId: studioId });
+                        const studioModel = await Studio.findOne({ magiclineId: magiclineId });
 
                         if (!studioModel) {
                             throw new Error('Studio not found');
@@ -69,9 +69,9 @@ const runUpdateSchedule = () => {
 
 // Checks if studio with given id exists
 // returns the studio's name
-const checkStudio = async (studioId) => {
+const checkStudio = async ( magiclineId ) => {
     let studioName = null;
-    studioName = await got.get(`https://fitx-proxy.daniel-stefan.dev/api/utilization/${studioId}`, {responseType: 'json'})
+    studioName = await got.get(`https://mein.fitx.de/nox/public/v1/studios/${magiclineId}`, {responseType: 'json', headers: {"x-tenant": "fitx"}})
     .then(async res => {
         if (res.statusCode == 200) {
             studioName = res.body.name;

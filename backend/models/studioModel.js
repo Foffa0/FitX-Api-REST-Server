@@ -5,7 +5,7 @@ const studioSchema = mongoose.Schema({
         type: String,
         required: true
     },
-    studioId: {
+    magiclineId: {
         type: Number,
         required: true
     }
