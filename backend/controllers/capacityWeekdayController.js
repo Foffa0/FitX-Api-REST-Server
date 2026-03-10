@@ -13,7 +13,6 @@ const getCapacityByMagiclineId = asyncHandler(async (req, res) => {
 
     const studioModel = await Studio.findOne({ magiclineId: req.query.magiclineId });
 
-    //await setCapacityByStudioId(studioModel._id, 0)
     if (!studioModel) {
         throw new Error('Studio not found');
     }
@@ -21,16 +20,6 @@ const getCapacityByMagiclineId = asyncHandler(async (req, res) => {
 
     res.status(200).json(capacities);
 });
-
-// @desc    Set studio capacity for a weekday
-// @route   internal
-// @access  Private
-// const setCapacityByStudioId = async (studioModelId, weekday) => {   
-//     const weekdayCapacity = await WeekdayCapacityModel.create({
-//         studio: studioModelId,
-//         weekday: weekday,
-//     });
-// }
 
 // @desc    Update studio weekday capacity
 // @route   internal
@@ -60,7 +49,6 @@ const deleteCapacityByStudioId = async (studioModelId, weekday) => {
 
 export {
     getCapacityByMagiclineId,
-    //setCapacityByStudioId,
     updateCapacityByStudioId,
     deleteCapacityByStudioId,
 }

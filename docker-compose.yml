@@ -18,8 +18,6 @@ services:
       - mongo
 
 
-# version: '3.8'
-
 # name: fitx
 
 # services:
@@ -31,8 +29,9 @@ services:
 #     volumes:
 #       #- ./mongodata:/data/db
 #       - ./fitx/fitx-api-db:/data/db
-#     #networks:
-#     #  - fitx-network
+#     networks:
+#       - fitx-network
+#     restart: unless-stopped
 #   node: 
 #     container_name: fitx_api
 #     image: fitx-api:latest
@@ -45,8 +44,9 @@ services:
 #       - mongo
 #     depends_on:
 #       - mongo
-#     #networks:
-#     #  - fitx-network
-# #networks:
-#   #fitx-network:
-#    # driver: bridge
+#     restart: unless-stopped
+#     networks:
+#       - fitx-network
+# networks:
+#   fitx-network:
+#     driver: bridge
